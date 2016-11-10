@@ -333,9 +333,6 @@ class Cell extends Component {
 
 const styles = StyleSheet.create({
 
-
-
-  // cell左图片
   cell_leftImage: {
     resizeMode:'contain',
     marginRight:6,
