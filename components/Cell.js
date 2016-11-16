@@ -11,6 +11,8 @@ import {
   Text,
   TouchableHighlight,
   View,
+  Image,
+    Alert
 } from 'react-native';
 /* eslint-enable import/no-unresolved */
 
@@ -60,29 +62,37 @@ class Cell extends Component {
       rightDetailColor,
       title,
       titleTextColor,
+      iconImg,
+        badgeNumber,
+
     } = this.props;
 
     let { cellStyle } = this.props;
-    /** Deprecation */
+
     // eslint-disable-next-line
     if (this.props.cellstyle) cellStyle = this.props.cellstyle;
 
     const isPressable = !!this.props.onPress;
 
-    /* Declare and merge styles with props */
     const styleCell = [
       ...{},
       styles.cell,
       { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
     ];
+
+
     const styleCell__subtitle = [
       ...{},
       styles.cell__subtitle,
       { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
     ];
+
+
     const styleCell_title = isDisabled
       ? [...{}, styles.cell_title, styles.cell_text__disabled]
       : [...{}, styles.cell_title, { color: titleTextColor }];
+
+
     const styleCell_leftDetailTitle = isDisabled ?
       [...{}, styles.cell_leftDetailTitle, styles.cell_text__disabled]
       : [...{}, styles.cell_leftDetailTitle, { color: titleTextColor }];
@@ -93,21 +103,29 @@ class Cell extends Component {
       styles.accessory_checkmark,
       { borderColor: accessoryColor },
     ];
+
+
     const styleAccessory_detail = [
       ...{},
       styles.accessory_detail,
       { borderColor: accessoryColor },
     ];
+
+
     const styleAccessory_detailText = [
       ...{},
       styles.accessory_detailText,
       { color: accessoryColor },
     ];
+
+
     const styleCell_leftDetail = [
       ...{},
       styles.cell_leftdetail,
       { color: leftDetailColor },
     ];
+
+
     const styleCell_rightDetail = [
       ...{},
       styles.cell_rightdetail,
@@ -145,27 +163,36 @@ class Cell extends Component {
       }
     };
 
+
+
     /**
      * Render cell of type Basic
      * @return {View} View with Text and Accessory
      */
     const CellBasic = () => (
       <View style={styleCell}>
+        {
+
+          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
+
+        }
+        {this.props.badgeNumber ? <View style={styles.badgeView}><Text style={styles.badgeText} >{this.props.badgeNumber}</Text></View> : null}
+
         <Text
-          allowFontScaling={this.props.allowFontScaling}
-          numberOfLines={1}
-          style={styleCell_title}
-        >
-          {title}
+            allowFontScaling={this.props.allowFontScaling}
+            numberOfLines={1}
+            style={styleCell_title}
+          >
+            {title}
         </Text>
         {renderAccessory()}
       </View>
     );
 
-   /**
-    * Render cell of type RightDetail
-    * @return {View} View with Text, Text and Accessory
-    */
+    /**
+     * Render cell of type RightDetail
+     * @return {View} View with Text, Text and Accessory
+     */
     const CellRightDetail = () => (
       <View style={styleCell}>
         <Text
@@ -186,9 +213,9 @@ class Cell extends Component {
     );
 
     /**
-    * Render cell of type LeftDetail
-    * @return {View} View with Text, Text and Accessory
-    */
+     * Render cell of type LeftDetail
+     * @return {View} View with Text, Text and Accessory
+     */
     const CellLeftDetail = () => (
       <View style={styleCell}>
         <Text
@@ -241,7 +268,9 @@ class Cell extends Component {
      */
     const renderCell = () => {
       let cellToRender = CellBasic;
+
       switch (cellStyle) {
+
         case 'Basic':
           cellToRender = CellBasic;
           break;
@@ -281,6 +310,31 @@ class Cell extends Component {
 }
 
 const styles = StyleSheet.create({
+
+  cell_leftImage: {
+    resizeMode:'contain',
+    marginRight:6,
+    width:26,
+    height:26,
+
+  },
+  badgeView:{
+    position:'absolute',
+    top:2,
+    left:38,
+    width:12,
+    height:12,
+    zIndex:13,
+    borderRadius:6,
+    backgroundColor:'red',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  badgeText:{
+    color:'white',
+    fontSize:8,
+  },
+
   cell: {
     justifyContent: 'center',
     paddingLeft: 15,
@@ -401,6 +455,14 @@ Cell.propTypes = {
     PropTypes.bool,
     PropTypes.func,
   ]),
+  //icon
+  iconImg:PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  //badege
+  badgeNumber:PropTypes.string,
+
 };
 
 Cell.defaultProps = {
@@ -417,6 +479,10 @@ Cell.defaultProps = {
   rightDetailColor: '#8E8E93',
   title: '',
   titleTextColor: '#000',
+  iconImg:'',
+  badgeNumber:'',
+
 };
+
 
 export default Cell;
