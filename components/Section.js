@@ -1,3 +1,4 @@
+
 /* eslint-disable import/no-unresolved */
 import React, {
   PropTypes,
@@ -64,7 +65,7 @@ const Section = (props) => {
           <View style={styleSeparator}>
             <View style={styleSeparatorInner} />
           </View>
-        );
+          );
       };
 
       return (
@@ -129,8 +130,8 @@ const Section = (props) => {
 
 const styles = StyleSheet.create({
   section: {
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 12,
+    paddingBottom: 0,
   },
   section_inner: {
     borderTopWidth: StyleSheet.hairlineWidth,
