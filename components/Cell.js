@@ -197,6 +197,9 @@ class Cell extends Component {
      */
     const CellRightDetail = () => (
       <View style={styleCell}>
+        {
+          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
+        }
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
