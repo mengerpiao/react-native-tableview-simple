@@ -61,8 +61,9 @@ class Cell extends Component {
       rightDetailColor,
       title,
       titleTextColor,
-      cellBadge,
       iconImg,
+        cellBadge,
+    }
      = this.props;
 
     let { cellStyle } = this.props;
@@ -175,11 +176,12 @@ class Cell extends Component {
      */
     const CellBasic = () => (
       <View style={styleCell}>
-        {
 
-          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null,
-          this.props.cellBadge ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null,
+
+        {
+          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
         }
+
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
@@ -188,6 +190,10 @@ class Cell extends Component {
           {title}
         </Text>
         {renderAccessory()}
+        {
+            this.props.cellBadge ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null
+        }
+
       </View>
     );
 
@@ -325,11 +331,16 @@ const styles = StyleSheet.create({
 
   },
     cell_badge:{
-    width:30,
-    height:30,
-    radius:15,
-    backgroundColor:'red',
-    color:'black',
+        position: 'absolute',
+        left:35,
+        top:4,
+        backgroundColor:'red',
+        width: 12,
+        height:12,
+        borderRadius:6,
+        fontSize:10,
+        textAlign: 'center',
+        color:'white',
     },
 
   cell: {
@@ -357,6 +368,7 @@ const styles = StyleSheet.create({
   cell_title: {
     fontSize: 16,
     flex: 1,
+
   },
   cell_leftDetailTitle: {
     fontSize: 12,
@@ -459,9 +471,10 @@ Cell.propTypes = {
   ]),
     //badge
     cellBadge:PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+
 };
 
 Cell.defaultProps = {
@@ -479,7 +492,7 @@ Cell.defaultProps = {
   title: '',
   titleTextColor: '#000',
   iconImg:'',
-  badgeNumber:'',
+    cellBadge:'',
 
 };
 
