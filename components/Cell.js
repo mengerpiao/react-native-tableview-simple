@@ -61,9 +61,9 @@ class Cell extends Component {
       rightDetailColor,
       title,
       titleTextColor,
+      cellBadge,
       iconImg,
-
-    } = this.props;
+     = this.props;
 
     let { cellStyle } = this.props;
 
@@ -177,8 +177,8 @@ class Cell extends Component {
       <View style={styleCell}>
         {
 
-          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
-
+          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null,
+          this.props.cellBadge ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null,
         }
         <Text
           allowFontScaling={this.props.allowFontScaling}
@@ -197,9 +197,6 @@ class Cell extends Component {
      */
     const CellRightDetail = () => (
       <View style={styleCell}>
-        {
-          this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
-        }
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
@@ -327,6 +324,13 @@ const styles = StyleSheet.create({
     height:26,
 
   },
+    cell_badge:{
+    width:30,
+    height:30,
+    radius:15,
+    backgroundColor:'red',
+    color:'black',
+    },
 
   cell: {
     justifyContent: 'center',
@@ -453,7 +457,11 @@ Cell.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
-
+    //badge
+    cellBadge:PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 Cell.defaultProps = {
@@ -471,6 +479,7 @@ Cell.defaultProps = {
   title: '',
   titleTextColor: '#000',
   iconImg:'',
+  badgeNumber:'',
 
 };
 
