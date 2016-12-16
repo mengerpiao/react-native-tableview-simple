@@ -82,14 +82,14 @@ class Cell extends Component {
     const styleCell = [
       ...{},
       styles.cell,
-      { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: 48 * this.state.fontSizeMultiplier },
     ];
 
 
     const styleCell__subtitle = [
       ...{},
       styles.cell__subtitle,
-      { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: 48 * this.state.fontSizeMultiplier },
     ];
 
 
@@ -191,7 +191,7 @@ class Cell extends Component {
         </Text>
         {renderAccessory()}
         {
-            this.props.cellBadge ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null
+            this.props.cellBadge!=0 ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null
         }
 
       </View>
@@ -203,6 +203,12 @@ class Cell extends Component {
      */
     const CellRightDetail = () => (
       <View style={styleCell}>
+          {
+
+              this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
+
+          }
+
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
@@ -351,10 +357,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 44,
+    height: 48,
   },
   cell__subtitle: {
-    height: 44,
+    height: 48,
     paddingLeft: 15,
     paddingRight: 20,
     flexDirection: 'row',
