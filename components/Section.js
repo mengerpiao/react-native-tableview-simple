@@ -56,7 +56,7 @@ const Section = (props) => {
       const styleSeparator = [
         ...{},
         styles.separator,
-        { backgroundColor: child.props.backgroundColor },
+        { backgroundColor: separatorTintColor },
       ];
       const renderSeparator = () => {
         if (hideSeparator) { return null; }
