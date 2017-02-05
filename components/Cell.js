@@ -505,7 +505,7 @@ Cell.defaultProps = {
   titleTextColor: '#000',
   iconImg:'',
   cellBadge:'',
-  cellHeight:'',
+  cellHeight:'48',
 };
 
 
