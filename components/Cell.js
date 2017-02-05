@@ -62,7 +62,8 @@ class Cell extends Component {
       title,
       titleTextColor,
       iconImg,
-        cellBadge,
+      cellBadge,
+      cellHeight,
     }
      = this.props;
 
@@ -82,14 +83,14 @@ class Cell extends Component {
     const styleCell = [
       ...{},
       styles.cell,
-      { backgroundColor, height: 48 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: cellHeight * this.state.fontSizeMultiplier },
     ];
 
 
     const styleCell__subtitle = [
       ...{},
       styles.cell__subtitle,
-      { backgroundColor, height: 48 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: cellHeight * this.state.fontSizeMultiplier },
     ];
 
 
@@ -266,7 +267,7 @@ class Cell extends Component {
           </Text>
           <Text
             allowFontScaling={this.props.allowFontScaling}
-            numberOfLines={1}
+            numberOfLines={2}
             style={isDisabled ? [...{}, styles.cell_subtitle, styles.cell_text__disabled] : styles.cell_subtitle}
           >
             {detail}
@@ -480,6 +481,11 @@ Cell.propTypes = {
         PropTypes.string,
         PropTypes.number,
     ]),
+  cellHeight:PropTypes.oneOfType([
+     PropTypes.string,
+      PropTypes.number,
+  ]),
+
 
 };
 
@@ -498,8 +504,8 @@ Cell.defaultProps = {
   title: '',
   titleTextColor: '#000',
   iconImg:'',
-    cellBadge:'',
-
+  cellBadge:'',
+  cellHeight:'',
 };
 
 
