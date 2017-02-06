@@ -61,6 +61,7 @@ class Cell extends Component {
       rightDetailColor,
       title,
       titleTextColor,
+
       iconImg,
       cellBadge,
       cellHeight,
@@ -268,7 +269,10 @@ class Cell extends Component {
           <Text
             allowFontScaling={this.props.allowFontScaling}
             numberOfLines={2}
-            style={isDisabled ? [...{}, styles.cell_subtitle, styles.cell_text__disabled] : styles.cell_subtitle}
+            style={isDisabled
+                ? [...{}, styles.cell_subtitle, styles.cell_text__disabled]
+                : [styles.cell_subtitle,{color: titleTextColor}]
+            }
           >
             {detail}
           </Text>
@@ -467,6 +471,7 @@ Cell.propTypes = {
     PropTypes.number,
   ]),
   titleTextColor: PropTypes.string,
+
   onPress: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.func,
@@ -503,6 +508,7 @@ Cell.defaultProps = {
   rightDetailColor: '#8E8E93',
   title: '',
   titleTextColor: '#000',
+
   iconImg:'',
   cellBadge:'',
   cellHeight:'48',
