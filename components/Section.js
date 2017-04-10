@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   sectionheader__text: {
-    fontSize: 13,
+    fontSize: 11,
   },
   sectionfooter: {
     paddingLeft: 15,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   sectionfooter__text: {
-    fontSize: 13,
+    fontSize: 11,
   },
   separator: {
   },
