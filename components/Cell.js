@@ -510,8 +510,8 @@ Cell.propTypes = {
   ]),
 
   //前边的矩形
-  rectangle:PropTypes.bool.isRequired
-
+  rectangle:PropTypes.bool.isRequired,
+  rectangleColor:PropTypes.string,
 
 };
 
