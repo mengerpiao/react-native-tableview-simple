@@ -218,7 +218,7 @@ class Cell extends Component {
         this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
 
         }
-
+  
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
@@ -477,6 +477,7 @@ Cell.propTypes = {
   detail: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.object,
   ]),
   highlightActiveOpacity: PropTypes.number,
   highlightUnderlayColor: PropTypes.string,
