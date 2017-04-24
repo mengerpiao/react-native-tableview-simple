@@ -166,9 +166,17 @@ Section.propTypes = {
   children: PropTypes.node,
   footerComponent: PropTypes.element,
   headerComponent: PropTypes.element,
-  footer: PropTypes.string,
+  footer: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+    ]),
   footerTextColor: PropTypes.string,
-  header: PropTypes.string,
+  header: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+    ]),
   headerTextColor: PropTypes.string,
   hideSeparator: PropTypes.bool,
   sectionTintColor: PropTypes.string,
