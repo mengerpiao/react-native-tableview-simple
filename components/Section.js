@@ -1,7 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, {
-  PropTypes,
-} from 'react';
+import { PropTypes } from 'prop-types';
 
 import {
   StyleSheet,
@@ -56,7 +54,7 @@ const Section = (props) => {
       const styleSeparator = [
         ...{},
         styles.separator,
-        { backgroundColor: child.props.backgroundColor },
+        { backgroundColor: separatorTintColor },
       ];
       const renderSeparator = () => {
         if (hideSeparator) { return null; }
@@ -143,7 +141,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   sectionheader__text: {
-    fontSize: 13,
+    fontSize: 11,
   },
   sectionfooter: {
     paddingLeft: 15,
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   sectionfooter__text: {
-    fontSize: 13,
+    fontSize: 11,
   },
   separator: {
   },
@@ -166,9 +164,17 @@ Section.propTypes = {
   children: PropTypes.node,
   footerComponent: PropTypes.element,
   headerComponent: PropTypes.element,
-  footer: PropTypes.string,
+  footer: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+    ]),
   footerTextColor: PropTypes.string,
-  header: PropTypes.string,
+  header: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.object
+    ]),
   headerTextColor: PropTypes.string,
   hideSeparator: PropTypes.bool,
   sectionTintColor: PropTypes.string,
@@ -183,7 +189,7 @@ Section.defaultProps = {
   hideSeparator: false,
   sectionTintColor: '#EFEFF4',
   footerTextColor: '#6d6d72',
-  separatorInsetLeft: 15,
+  separatorInsetLeft: 0,
   separatorInsetRight: 0,
   separatorTintColor: '#c8c7cc',
 };
