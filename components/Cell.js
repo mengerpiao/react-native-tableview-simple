@@ -1,8 +1,9 @@
 /* eslint-disable import/no-unresolved */
 import React, {
   Component,
-  PropTypes,
 } from 'react';
+
+import { PropTypes } from 'prop-types';
 
 import {
   NativeModules,
@@ -61,9 +62,15 @@ class Cell extends Component {
       rightDetailColor,
       title,
       titleTextColor,
-      iconImg,
 
-    } = this.props;
+      iconImg,
+      cellBadge,
+      cellHeight,
+
+      rectangle,
+      rectangleColor,
+    }
+     = this.props;
 
     let { cellStyle } = this.props;
 
@@ -72,23 +79,17 @@ class Cell extends Component {
 
     const isPressable = !!this.props.onPress;
 
-    // const styleCell_img = [
-    //   ...{},
-    //   styles.cell_image,
-    //   {backgroundColor,height:44*this.state.fontSizeMultiplier },
-    // ];
-
     const styleCell = [
       ...{},
       styles.cell,
-      { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: cellHeight * this.state.fontSizeMultiplier },
     ];
 
 
     const styleCell__subtitle = [
       ...{},
       styles.cell__subtitle,
-      { backgroundColor, height: 44 * this.state.fontSizeMultiplier },
+      { backgroundColor, height: cellHeight * this.state.fontSizeMultiplier },
     ];
 
 
@@ -136,12 +137,19 @@ class Cell extends Component {
       { color: rightDetailColor },
     ];
 
+    const styleRectangle = [
+      ...{},
+      styles.rectangle,
+      {backgroundColor:rectangleColor},
+    ];
+
     /**
      * Render accessory
      * Currently available
      * @return {View} View with accessory
      */
     const renderAccessory = () => {
+      
       switch (accessory) {
         case 'DisclosureIndicator':
           return (<View style={styles.accessory_disclosureIndicator} />);
@@ -175,19 +183,25 @@ class Cell extends Component {
      */
     const CellBasic = () => (
       <View style={styleCell}>
-        {
-
+      {
+        this.props.rectangle?<View style={styleRectangle}></View>:null
+      }
+      {
           this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
+      }
 
-        }
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
-          style={styleCell_title}
+          style={[styleCell_title,this.props.rectangle?null:{marginLeft:15}]}
         >
           {title}
         </Text>
         {renderAccessory()}
+        {
+            this.props.cellBadge!=0 ? <Text style={styles.cell_badge}>{this.props.cellBadge}</Text> : null
+        }
+
       </View>
     );
 
@@ -197,10 +211,19 @@ class Cell extends Component {
      */
     const CellRightDetail = () => (
       <View style={styleCell}>
+      {
+        this.props.rectangle?<View style={styleRectangle}></View>:null
+      }
+      {
+
+        this.props.iconImg  ? <Image source={this.props.iconImg} style={styles.cell_leftImage} /> : null
+
+        }
+  
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
-          style={styleCell_title}
+          style={[styleCell_title,this.props.rectangle?null:{marginLeft:15}]}
         >
           {title}
         </Text>
@@ -220,6 +243,9 @@ class Cell extends Component {
      */
     const CellLeftDetail = () => (
       <View style={styleCell}>
+      {
+        this.props.rectangle?<View style={styleRectangle}></View>:null
+      }
         <Text
           allowFontScaling={this.props.allowFontScaling}
           numberOfLines={1}
@@ -244,6 +270,9 @@ class Cell extends Component {
      */
     const CellSubtitle = () => (
       <View style={styleCell__subtitle}>
+      {
+        this.props.rectangle?<View style={styleRectangle}></View>:null
+      }
         <View style={styles.cellinner__subtitle}>
           <Text
             allowFontScaling={this.props.allowFontScaling}
@@ -254,8 +283,11 @@ class Cell extends Component {
           </Text>
           <Text
             allowFontScaling={this.props.allowFontScaling}
-            numberOfLines={1}
-            style={isDisabled ? [...{}, styles.cell_subtitle, styles.cell_text__disabled] : styles.cell_subtitle}
+            numberOfLines={2}
+            style={isDisabled
+                ? [...{}, styles.cell_subtitle, styles.cell_text__disabled]
+                : [styles.cell_subtitle,{color: titleTextColor}]
+            }
           >
             {detail}
           </Text>
@@ -272,10 +304,6 @@ class Cell extends Component {
       let cellToRender = CellBasic;
 
       switch (cellStyle) {
-        //
-        // case 'imgCell':
-        //   cellToRender = ImgCell;
-        //   break;
 
         case 'Basic':
           cellToRender = CellBasic;
@@ -324,19 +352,37 @@ const styles = StyleSheet.create({
     height:26,
 
   },
+    rectangle:{
+      marginLeft:0,
+      marginRight:12,
+      height:20,
+      width:3,
+    },
+    cell_badge:{
+        position: 'absolute',
+        left:35,
+        top:4,
+        backgroundColor:'red',
+        width: 12,
+        height:12,
+        borderRadius:6,
+        fontSize:10,
+        textAlign: 'center',
+        color:'white',
+    },
 
   cell: {
     justifyContent: 'center',
-    paddingLeft: 15,
+    paddingLeft: 0,
     paddingRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 44,
+    height: 48,
   },
   cell__subtitle: {
-    height: 44,
+    height: 48,
     paddingLeft: 15,
     paddingRight: 20,
     flexDirection: 'row',
@@ -361,11 +407,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 5,
     width: 75,
+    
   },
   cell_rightdetail: {
-    fontSize: 16,
+    fontSize: 14,
     alignSelf: 'center',
     color: '#8E8E93',
+    paddingLeft:12
   },
   cell_subtitle: {
     fontSize: 11,
@@ -430,6 +478,7 @@ Cell.propTypes = {
   detail: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.object,
   ]),
   highlightActiveOpacity: PropTypes.number,
   highlightUnderlayColor: PropTypes.string,
@@ -439,8 +488,10 @@ Cell.propTypes = {
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.object,
   ]),
   titleTextColor: PropTypes.string,
+
   onPress: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.func,
@@ -450,6 +501,19 @@ Cell.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+    //badge
+    cellBadge:PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
+  cellHeight:PropTypes.oneOfType([
+     PropTypes.string,
+      PropTypes.number,
+  ]),
+
+  //前边的矩形
+  rectangle:PropTypes.bool.isRequired,
+  rectangleColor:PropTypes.string,
 
 };
 
@@ -467,8 +531,14 @@ Cell.defaultProps = {
   rightDetailColor: '#8E8E93',
   title: '',
   titleTextColor: '#000',
-  iconImg:'',
 
+  iconImg:'',
+  cellBadge:'',
+  cellHeight:'44',
+
+  //前边的小矩形
+  rectangle:true,
+  rectangleColor:'#659AF0',
 };
 
 
